@@ -16,17 +16,18 @@ ActiveRecord::Schema.define(version: 20170410074628) do
   enable_extension "plpgsql"
 
   create_table "blogs", force: :cascade do |t|
-    t.string   "title",      null: false
-    t.string   "summary",    null: false
-    t.text     "content",    null: false
-    t.integer  "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "title",           limit: 50,  null: false
+    t.string   "summary",         limit: 150, null: false
+    t.text     "content",                     null: false
+    t.integer  "user_id",                     null: false
+    t.string   "title_image_url", limit: 150, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name",  null: false
-    t.string "email", null: false
+    t.string "name",  limit: 45, null: false
+    t.string "email", limit: 45, null: false
   end
 
   add_foreign_key "blogs", "users"

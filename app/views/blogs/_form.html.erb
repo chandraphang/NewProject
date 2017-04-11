@@ -34,6 +34,12 @@
     </div>
     <div class="row control-group">
          <div class="form-group col-xs-12 floating-label-form-group controls">
+           <%= f.label :title_image_url%>
+           <%= f.text_field :title_image_url, class:"form-control", placeholder: "Title Image Url"%>
+         </div>
+    </div>
+    <div class="row control-group">
+         <div class="form-group col-xs-12 floating-label-form-group controls">
          <p style="font-size: 20px;color: grey">Authors</p>
           <%= f.select("user_id", User.all.collect {|p| [ p.name, p.id ] }, {}, { :class => 'form-control' }) %>
          </div>
