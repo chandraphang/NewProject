@@ -1,0 +1,80 @@
+<header class="intro-header" style="background-image: url('/assets/home-bg.jpg')">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="site-heading">
+          <h1>Users</h1>
+          <hr class="small">
+          <span class="subheading">We Gotta Controls of Your Blog</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h1>Users</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="4"><%= button_to "New User",new_user_path , :method => "get", class:"btn btn-default" , id:"custom-btn"%></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+          <tr>
+            <td class="col-md-4 data"><%= user.name %></td>
+            <td class="col-md-2 data"><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td class="col-md-2 data"><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <br>
+
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center">
+          <li>
+            <a href="#">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Your Website 2016</p>
+      </div>
+    </div>
+  </div>
+</footer>

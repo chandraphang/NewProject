@@ -1,0 +1,29 @@
+<header class="intro-header" style="background-image: url('/assets/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>Users</h1>
+                    <hr class="small">
+                    <span class="subheading">We Gotta Controls of Your Blog</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <h1>New User</h1>
+
+            <%= render 'form', user: @user %>
+
+            <%= link_to 'Back', users_path %>
+
+
+        </div>
+    </div>
+</div>
+
+<hr>

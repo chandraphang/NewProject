@@ -1,0 +1,32 @@
+    <header class="intro-header" style="background-image: url('/assets/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1><%= @blog.title %></h1>
+                        <h2 class="subheading"><%= @blog.summary %></h2>
+                        <span class="meta">Posted on <%= @blog.created_at %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1>Editing Blog</h1>
+                <%= render 'form', blog: @blog %>
+                <br>
+                <br>
+<%= button_to "Show", @blog, :method => "get", class:"btn btn-default" , id:"custom-btn"%>
+<%= button_to "Back", blogs_path, :method => "get", class:"btn btn-default" , id:"custom-btn"%>
+
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
