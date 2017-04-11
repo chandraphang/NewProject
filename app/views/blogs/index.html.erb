@@ -32,7 +32,7 @@
                             <%= blog.summary %>
                         </h3>
 
-                    <p class="post-meta">Posted by <%=blog.user.name%> on <%= blog.created_at.strftime("%b %d, %Y") %></p>
+                    <p class="post-meta">Posted by <%=mail_to blog.user.email, blog.user.name%> on <%= blog.created_at.strftime("%b %d, %Y") %></p>
                 </div>
                 <hr>
                 <!-- Pager -->

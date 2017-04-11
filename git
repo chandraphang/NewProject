@@ -1,0 +1,29 @@
+git
+sistem untuk version control
+bisa simpen version dan bisa balik ke version yang sebelumnya
+bisa kerjain bareng2
+    ada fungsi yang bisa bantu kerja bareng (merge)
+
+project blog -> git
+
+github
+
+git fetch
+    download file taro di --> .git
+        taro metadata buat git
+git pull
+    git fetch
+    download file dari branch di internet, taro di local folder semuanya
+    /newproject
+git push
+git stash
+git reset
+git merge
+git branch
+git checkout
+
+
+tambah
+- email column
+- tambah link di user bisa mailto:
+
