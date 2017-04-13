@@ -1,10 +1,28 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
+  before_action :check_session, only: [:index, :show, :edit, :about]
 
   # GET /blogs
   # GET /blogs.json
   def index
-    @blogs = Blog.all
+    if params[:search]
+      if @blogs.blank?
+    flash[:notice] = "Search Result for "+"'"+params[:search]+"'"
+    flash[:danger] = "Sorry the Blog is not Available"
+    @blogs = Blog.search(params[:search]).order("created_at DESC")
+      end
+      if !@blogs.blank?
+        flash[:notice] = "Search Result for "+"'"+params[:search]+"'"
+        flash[:danger] = ""
+        @blogs = Blog.search(params[:search]).order("created_at DESC")
+
+    end
+  else
+    @blogs = Blog.all.order('created_at DESC')
+    flash[:notice] = ""
+    flash[:danger] = ""
+  end
+
   end
 
   # GET /blogs/1
@@ -21,6 +39,7 @@ class BlogsController < ApplicationController
   def edit
   end
 
+
   def about
   end
 
@@ -30,6 +49,7 @@ class BlogsController < ApplicationController
     @blog = Blog.new(blog_params)
 
     respond_to do |format|
+
       if @blog.save
         format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
         format.json { render :show, status: :created, location: @blog }

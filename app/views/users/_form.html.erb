@@ -1,8 +1,9 @@
 <%= form_for(user) do |f| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
+      <div id="error-heading">
+      <h2 style="background-color: red;opacity: 0.6;color: white;"><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      </div id="error-heading">
       <ul>
       <% user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -18,6 +19,14 @@
          <div class="form-group col-xs-12 floating-label-form-group controls">
            <%= f.label :email%>
            <%= f.text_field :email, class:"form-control", placeholder: "Email"%>
+         </div>
+         <div class="form-group col-xs-12 floating-label-form-group controls">
+           <%= f.label :password%>
+           <%= f.password_field :password, class:"form-control", placeholder: "Password"%>
+         </div>
+         <div class="form-group col-xs-12 floating-label-form-group controls">
+           <%= f.label :password_confirmation, "Confirmation"%>
+           <%= f.password_field :password_confirmation, class:"form-control", placeholder: "Password Confirmation"%>
          </div>
     </div>
 

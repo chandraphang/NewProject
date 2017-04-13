@@ -22,15 +22,28 @@
           <tr>
             <th colspan="4"><%= button_to "New User",new_user_path , :method => "get", class:"btn btn-default" , id:"custom-btn"%></th>
           </tr>
+          <tr>
+
+
+
+
+          </tr>
         </thead>
 
         <tbody>
+          <tr>
+             <td class="col-md-4 data">Nama</td>
+              <td class="col-md-4 data">Email</td>
+
+          </tr>
           <% @users.each do |user| %>
           <tr>
-            <td class="col-md-2 data"><%= user.name %></td>
+            <td class="col-md-4 data"><%= user.name %></td>
              <td class="col-md-4 data"><%= user.email %></td>
-            <td class="col-md-2 data"><%= link_to 'Edit', edit_user_path(user) %></td>
-            <td class="col-md-2 data"><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+            <td class="col-md-2 data"><%= button_to "Edit", edit_user_path(user), :method => "get", class:"btn btn-default" , id:"custom-btn"%></td>
+
+            <td class="col-md-2 data"><%= button_to "Destroy", user, :method => "delete", class:"btn btn-default" , id:"custom-btn", data: { confirm: 'Are you sure?' }%></td>
           </tr>
           <% end %>
         </tbody>

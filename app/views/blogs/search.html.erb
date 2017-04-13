@@ -1,57 +1,49 @@
-
-
-<!-- Page Header -->
-<!-- Navigation -->
-<!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url('/assets/home-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Welcome</h1>
-                    <hr class="small">
-                    <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+    <!-- Page Header -->
+ <!-- Navigation -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/assets/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Welcome</h1>
+                        <hr class="small">
+                        <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="search-div">
-
-                <%= form_tag blogs_path, :method => 'get' do %>
-                <%= text_field_tag :search, params[:search] %>
-                <%= submit_tag "Search", :name => nil %>
-                <%end%>
-            </div>
-
-            <h2  style="margin-top: 50px;"><% if flash[:notice] %>
-                <%= flash[:notice] %>
-                <% end %>
-                </h2>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2>Search Result "<% if flash[:notice] %>
+                    <%= flash[:notice] %>
+                    <% end %>
+                "</h2>
                 <% if flash[:danger] %>
-                <%= flash[:danger] %>
-                <% end %>
-
+                    <%= flash[:danger] %>
+                    <% end %>
                 <% @blogs.order(created_at: :desc).all.each do |blog| %>
                 <div class="post-preview">
 
-                    <h2 class="post-title">
-                        <%=link_to blog.title, blog_path(id: blog.id)%>
-                    </h2>
-                    <h3 class="post-subtitle">
-                        <%= blog.summary %>
-                    </h3>
+                        <h2 class="post-title">
+                            <%=link_to blog.title, blog_path(id: blog.id)%>
+                        </h2>
+                        <h3 class="post-subtitle">
+                            <%= blog.summary %>
+                        </h3>
+
 
                     <p class="post-meta">Posted by <%=mail_to blog.user.email, blog.user.name%> on <%= blog.created_at.strftime("%b %d, %Y") %></p>
+
                 </div>
                 <hr>
                 <!-- Pager -->
-                <%end%>
+            <%end%>
+            <%= button_to "Back", blogs_path, :method => "get", class:"btn btn-default" , id:"custom-btn"%>
             </div>
         </div>
     </div>
