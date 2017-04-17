@@ -1,52 +1,75 @@
 <%= form_for(blog) do |f| %>
-  <% if blog.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+<% if blog.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
 
-      <ul>
-      <% blog.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <ul>
+    <% blog.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+</ul>
+</div>
 <% end %>
 
-    <div class="row control-group">
-         <div class="form-group col-xs-12 floating-label-form-group controls">
-           <%= f.label :title%>
-           <%= f.text_field :title, class:"form-control", placeholder: "Title"%>
-         </div>
-    </div>
+<div class="row control-group">
+   <div class="form-group col-xs-12 floating-label-form-group controls">
+     <%= f.label :title%>
+     <%= f.text_field :title, class:"form-control", placeholder: "Title"%>
+ </div>
+</div>
 
-    <div class="row control-group">
-         <div class="form-group col-xs-12 floating-label-form-group controls">
-           <%= f.label :summary%>
-           <%= f.text_field :summary, class:"form-control", placeholder: "Summary"%>
-         </div>
-    </div>
+<div class="row control-group">
+   <div class="form-group col-xs-12 floating-label-form-group controls">
+     <%= f.label :summary%>
+     <%= f.text_field :summary, class:"form-control", placeholder: "Summary"%>
+ </div>
+</div>
 
-    <div class="row control-group">
-         <div class="form-group col-xs-12 floating-label-form-group controls">
-           <%= f.label :content%>
-           <%= f.text_area  :content, class:"form-control", placeholder: "Content", rows:10 %>
-         </div>
-    </div>
-    <div class="row control-group">
-         <div class="form-group col-xs-12 floating-label-form-group controls">
-           <%= f.label :title_image_url%>
-           <%= f.text_field :title_image_url, class:"form-control", placeholder: "Title Image Url"%>
-         </div>
-    </div>
-    <div class="row control-group">
-         <div class="form-group col-xs-12 floating-label-form-group controls">
-         <p style="font-size: 20px;color: grey;margin-bottom: 10px;">Authors</p>
-         <%= f.text_field :user_id,:readonly => true, value:current_user.name%>
-         <%= f.hidden_field :user_id, :input_html => { :id => 'blog_user_id', :name =>'blog[user_id]' }, :readonly => true, value:current_user.id%>
+<div class="row control-group">
+   <div class="form-group col-xs-12 floating-label-form-group controls">
+     <%= f.label :content%>
+     <%= f.text_area  :content, class:"form-control", placeholder: "Content", rows:10 %>
+ </div>
+</div>
+<div class="row control-group">
+   <div class="form-group col-xs-12 floating-label-form-group controls">
+     <%= f.label :title_image_url%>
+     <%= f.text_field :title_image_url, class:"form-control", placeholder: "Title Image Url"%>
+ </div>
+</div>
+<div class="row control-group">
+   <div class="form-group col-xs-12 floating-label-form-group controls">
+     <p style="font-size: 20px;color: grey;margin-bottom: 10px;">Tags</p>
 
-         </div>
+        <% Tag.all.each do |tag| %>
+            <%if @blog.taggings.map{|x|x.tag.id}.include? tag.id%>
+            <div class="col-xs-3" style="font-size: 18px">
 
-    </div>
-    <div class="actions form col-md-11 col-sm-11">
-      <%= f.button :submit => "", class:"btn btn-default center-block" %>
+            <%= check_box_tag :tags, tag.id,  {:checked => "checked"}%>
+            <%= tag.name%>
+            </div>
+
+            <%else%>
+                 <div class="col-xs-3" style="font-size: 18px">
+                 <%= check_box_tag blog[tag], tag.id%>
+                 <%= tag.name%>
+            </div>
+            <%end%>
+
+        <% end %>
+</div>
+
+</div>
+<div class="row control-group">
+   <div class="form-group col-xs-12 floating-label-form-group controls">
+     <p style="font-size: 20px;color: grey;margin-bottom: 10px;">Authors</p>
+     <%= f.text_field :user_id,:readonly => true, value:current_user.name%>
+     <%= f.hidden_field :user_id, :input_html => { :id => 'blog_user_id', :name =>'blog[user_id]' }, :readonly => true, value:current_user.id%>
+
+ </div>
+
+</div>
+<div class="actions form col-md-11 col-sm-11">
+  <%= f.button :submit => "", class:"btn btn-default center-block" %>
 </div>
 <% end %>

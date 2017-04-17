@@ -18,13 +18,19 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <%= @blog.content %>
                 <br>
+
                 <br>
+
+                <p>Tags: <%= tag = @blog.taggings.map{|x|x.tag.name}.to_s.gsub('"', '')%></p>
+
+
                 <br>
                 <%if current_user.id == @blog.user_id %>
                 <%= button_to "Destroy", @blog, :method => "delete", class:"btn btn-default" , id:"custom-btn", data: { confirm: 'Are you sure?' }%>
                 <%= button_to "Edit", edit_blog_path(@blog), :method => "get", class:"btn btn-default", id:"custom-btn"%>
                 <%end%>
                 <%= button_to "Back", blogs_path, :method => "get", class:"btn btn-default", id:"custom-btn" %>
+
                 </div>
             </div>
         </div>

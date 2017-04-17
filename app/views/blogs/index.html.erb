@@ -22,11 +22,15 @@
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="search-div">
-
+                <form class="form-inline">
                 <%= form_tag blogs_path, :method => 'get' do %>
-                <%= text_field_tag :search, params[:search] %>
+                <%= text_field_tag :search, params[:search],placeholder: "Search by Blog Title" %>
+                <%=select("tags", "id", Tag.all.collect {|p| [ p.name, p.id ] }, { include_blank: 'All' }, {:class => 'form-control'})
+%>
+
                 <%= submit_tag "Search", :name => nil %>
                 <%end%>
+                </form>
             </div>
 
             <h2  style="margin-top: 50px;"><% if flash[:notice] %>
@@ -37,20 +41,23 @@
                 <%= flash[:danger] %>
                 <% end %>
 
-                <% @blogs.order(created_at: :desc).all.each do |blog| %>
+                <%if !@blogs_by_tag.blank?%>
+                 <% @blogs_by_tag.each do |blog_by_tag| %>
                 <div class="post-preview">
 
                     <h2 class="post-title">
-                        <%=link_to blog.title, blog_path(id: blog.id)%>
-                    </h2>
+                        <%=link_to blog_by_tag.title, blog_path(id: blog_by_tag.id)%>                    </h2>
                     <h3 class="post-subtitle">
-                        <%= blog.summary %>
+                        <%= blog_by_tag.summary %>
                     </h3>
-
-                    <p class="post-meta">Posted by <%=mail_to blog.user.email, blog.user.name%> on <%= blog.created_at.strftime("%b %d, %Y") %></p>
+                    <h4 class="post-subtitle">
+                        Tags: <%= blog_by_tag.taggings.map{|x|x.tag.name}.to_s.gsub('"', '') %>
+                    </h4>
+                    <p class="post-meta">Posted by <%=mail_to blog_by_tag.user.email, blog_by_tag.user.name%> on <%= blog_by_tag.created_at.strftime("%b %d, %Y") %></p>
                 </div>
                 <hr>
                 <!-- Pager -->
+                <%end%>
                 <%end%>
             </div>
         </div>
