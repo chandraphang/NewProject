@@ -16,7 +16,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                 <%if current_user.id == @blog.user_id %>
+                <%= button_to "Destroy", @blog, :method => "delete", class:"btn btn-default" , id:"custom-btn", data: { confirm: 'Are you sure?' }%>
+                <%= button_to "Edit", edit_blog_path(@blog), :method => "get", class:"btn btn-default", id:"custom-btn"%>
+                <%end%>
+                <%= button_to "Back", blogs_path, :method => "get", class:"btn btn-default", id:"custom-btn" %>
+                <div class="content">
                 <%= @blog.content %>
+                </div>
                 <br>
 
                 <br>
@@ -25,11 +32,23 @@
 
 
                 <br>
-                <%if current_user.id == @blog.user_id %>
-                <%= button_to "Destroy", @blog, :method => "delete", class:"btn btn-default" , id:"custom-btn", data: { confirm: 'Are you sure?' }%>
-                <%= button_to "Edit", edit_blog_path(@blog), :method => "get", class:"btn btn-default", id:"custom-btn"%>
+
+                <%= render :partial => 'comment', :collection => @blog.comments %>
+
+                 <%if @blog.commentable == "Yes"%>
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                     <p style="font-size: 20px;margin-bottom: 10px;">Comment</p>
+                     <%= form_for @comment do|f| %>
+                         <%=text_field :comment, :username, class:"form-control", placeholder: "Name"%>
+                         <%=text_area  :comment, :comment_text, class:"form-control", placeholder: "Put Your Comment Here!", rows:5 %>
+                         <%=f.submit "Submit", class: "btn btn-default", :style => "border:1px solid lightgrey;padding:15px;font-size:15px"%>
+                         <%= f.hidden_field :blog_id, :input_html => { :id => 'comment_blog_id', :name =>'comment[blog_id]' }, :readonly => true, value:@blog.id%>
+                    <%end%>
+                    </div>
+                </div>
+
                 <%end%>
-                <%= button_to "Back", blogs_path, :method => "get", class:"btn btn-default", id:"custom-btn" %>
 
                 </div>
             </div>

@@ -9537,3 +9537,8 @@ label.error{
 .search-div{
   float: right;
 }
+
+.content{
+  float: none;
+  clear: both;
+}

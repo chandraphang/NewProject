@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413031637) do
+ActiveRecord::Schema.define(version: 20170425021538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,9 +20,18 @@ ActiveRecord::Schema.define(version: 20170413031637) do
     t.string   "summary",         limit: 150, null: false
     t.text     "content",                     null: false
     t.integer  "user_id",                     null: false
-    t.string   "title_image_url", limit: 150, null: false
+    t.string   "title_image_url", limit: 300, null: false
+    t.string   "commentable",     limit: 5,   null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "username",     limit: 50,  null: false
+    t.integer  "blog_id",                  null: false
+    t.string   "comment_text", limit: 300, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -47,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170413031637) do
   end
 
   add_foreign_key "blogs", "users"
+  add_foreign_key "comments", "blogs"
   add_foreign_key "taggings", "blogs"
   add_foreign_key "taggings", "tags"
 end

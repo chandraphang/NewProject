@@ -45,13 +45,13 @@
             <%if @blog.taggings.map{|x|x.tag.id}.include? tag.id%>
             <div class="col-xs-3" style="font-size: 18px">
 
-            <%= check_box_tag :tags, tag.id,  {:checked => "checked"}%>
+            <%= check_box_tag 'tags[tag_id][]', tag.id,  {:checked => "checked"}%>
             <%= tag.name%>
             </div>
 
             <%else%>
                  <div class="col-xs-3" style="font-size: 18px">
-                 <%= check_box_tag blog[tag], tag.id%>
+                 <%= check_box_tag 'tags[tag_id][]', tag.id%>
                  <%= tag.name%>
             </div>
             <%end%>
@@ -60,6 +60,15 @@
 </div>
 
 </div>
+
+<div class="row control-group">
+   <div class="form-group col-xs-12 floating-label-form-group controls">
+    <p style="font-size: 20px;color: grey;margin-bottom: 10px;">Commentable</p>
+     <%= select("blog", "commentable", %w[Yes No], {},{class:"form-control"})%>
+ </div>
+</div>
+
+
 <div class="row control-group">
    <div class="form-group col-xs-12 floating-label-form-group controls">
      <p style="font-size: 20px;color: grey;margin-bottom: 10px;">Authors</p>

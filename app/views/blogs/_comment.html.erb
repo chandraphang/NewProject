@@ -1,0 +1,5 @@
+<div class="comment">
+  <i><%=h comment.username %> <%=distance_of_time_in_words(Time.now, h(comment.created_at)) %> ago says:</i>
+  <%= simple_format h(comment.comment_text) %>
+
+</div>

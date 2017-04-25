@@ -6,6 +6,12 @@ class BlogsController < ApplicationController
   # GET /blogs.json
 
   def index
+
+    @blogs = Blog.all
+    @comments = Comment.all
+  end
+
+  def blog_list
     if params[:search]
         if params[:tags][:id].blank?
             @blogs = Blog.all.order('created_at DESC')
@@ -32,6 +38,7 @@ end
   # GET /blogs/1
   # GET /blogs/1.json
   def show
+    @comment = Comment.new( :blog => @blog )
   end
 
   # GET /blogs/new
@@ -51,8 +58,8 @@ end
   # POST /blogs.json
   def create
     @blog = Blog.create(blog_params)
-    tag_params[:tag_id].each do |p|
-      @tagging = Tagging.create(tag_id: p.to_i, blog_id: @blog.id)
+    params[:tags][:tag_id].each do |p|
+    @tagging = Tagging.create(tag_id: p.to_i, blog_id: @blog.id)
   end
   respond_to do |format|
 
@@ -65,8 +72,9 @@ end
   # PATCH/PUT /blogs/1
   # PATCH/PUT /blogs/1.json
   def update
-    tag_params[:tag_id].each do |p|
-    @tagging = Tagging.destroy(tag_id: p.to_i, blog_id: @blog.id)
+    @destroy_tagging = Tagging.where(:blog_id => @blog.id).destroy_all
+    params[:tags][:tag_id].each do |p|
+    @tagging = Tagging.create(tag_id: p.to_i, blog_id: @blog.id)
 end
     respond_to do |format|
       if @blog.update(blog_params)
@@ -99,9 +107,11 @@ private
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:title, :content, :summary, :user_id, :title_image_url)
+      params.require(:blog).permit(:title, :content, :summary, :user_id, :title_image_url, :commentable)
   end
 
-
+    def tag_params
+      params.require(:tags).permit(:tag_id)
+  end
 
 end

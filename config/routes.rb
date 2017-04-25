@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   get 'sessions/new'
 
   resources :users
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
   resources :blogs, :path => 'blog_posts'
 
   get '/about',to: 'blogs#about'
+  get '/blog_list',to: 'blogs#blog_list'
   get '/search',to: 'blogs#search'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
